@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/IndexView.vue'
+import Layout from '@/layout/IndexView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,13 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: Layout,
+      // children: [
+      //   {
+      //     path: '/index',
+      //     component:()=>import('@/views/IndexView.vue')
+      //   }
+      // ]
     },
 
   ]
