@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "homeImgae":"url(@/assets/image/bgimg.jpg)"
-      }
+      },
     },
   },
   variants: {

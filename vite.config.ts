@@ -21,5 +21,30 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  server: {
+    host: '0.0.0.0',
+    // port: 3008,
+    // 服务端口号
+    port: 8081,
+    open: false, // 服务启动时是否自动打开浏览器
+    cors: true, // 允许跨域
+    proxy: {
+      '/biying': {
+        target: 'https://api.bing.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace('/biying', ''),
+      },
+      '/baidu': {
+        target: 'http://suggestion.baidu.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace('/biying', ''),
+      },
+      '/google': {
+        target: 'http://clients1.google.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace('/biying', ''),
+      },
+    },
+  },
 })
