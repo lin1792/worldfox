@@ -26,7 +26,7 @@ export default defineConfig({
     host: '0.0.0.0',
     // port: 3008,
     // 服务端口号
-    port: 8081,
+    // port: 8081,
     open: false, // 服务启动时是否自动打开浏览器
     cors: true, // 允许跨域
     proxy: {
