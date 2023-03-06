@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/layout/IndexView.vue'
 
+import { useSearchStore } from '@/stores/search'
+
+
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -17,6 +22,11 @@ const router = createRouter({
     },
 
   ]
-})
-
+});
+router.beforeEach(async (to, from, next) => {
+  const useSearch = useSearchStore()
+  useSearch.useupdata()
+  console.log(1);
+  next()
+});
 export default router

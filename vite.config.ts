@@ -38,12 +38,12 @@ export default defineConfig({
       '/baidu': {
         target: 'http://suggestion.baidu.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace('/biying', ''),
+        rewrite: (path) => path.replace('/baidu', ''),
       },
       '/google': {
         target: 'http://clients1.google.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace('/biying', ''),
+        rewrite: (path) => path.replace('/google', ''),
       },
     },
   },
