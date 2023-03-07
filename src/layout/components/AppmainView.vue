@@ -40,7 +40,7 @@ const input = ref('')
 const inputFn =async () => {
   if (input.value !== '') {
     
-   await currentSearchMethod.value==='biying'?usesug(searchUrl.value.biying.sugPath, input.value).then((res:any) => {
+   await currentSearchMethod.value==='biying'?usesug(currentSearchMethod.value + searchUrl.value.biying.sugPath, input.value).then((res:any) => {
      res.AS?.Results[1] ? sugList.value = res.AS?.Results[0]?.Suggests.concat(res.AS?.Results[1]?.Suggests) : sugList.value = res.AS?.Results[0]?.Suggests
      showSug.value=true
     }) : ''
