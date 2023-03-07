@@ -120,7 +120,7 @@ const search = () => {
 </div>
 
 
-  <h1 class="mb-6 text-center text-white text-7xl">Pure</h1>
+  <h1 class="mb-6 text-center text-white text-7xl">狐域未来</h1>
 
   <h2 class="text-center text-white text-8xl">Search navigation</h2>
 
