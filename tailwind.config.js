@@ -10,7 +10,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      margin: ['first'],
+      borderWidth: ['first'],
+    }
   },
   plugins: [],
 }
