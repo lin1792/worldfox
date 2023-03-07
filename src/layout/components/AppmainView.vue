@@ -40,12 +40,12 @@ const input = ref('')
 const inputFn =async () => {
   if (input.value !== '') {
     
-   await currentSearchMethod.value==='biying'?usesug(currentSearchMethod.value+searchUrl.value.biying.sugPath, input.value).then((res) => {
-     res.AS.Results[1] ? sugList.value = res.AS.Results[0].Suggests.concat(res.AS.Results[1].Suggests) : sugList.value = res.AS.Results[0].Suggests
+   await currentSearchMethod.value==='biying'?usesug(currentSearchMethod.value+searchUrl.value.biying.sugPath, input.value).then((res:any) => {
+     res.AS?.Results[1] ? sugList.value = res.AS?.Results[0]?.Suggests.concat(res.AS?.Results[1]?.Suggests) : sugList.value = res.AS?.Results[0]?.Suggests
      showSug.value=true
     }) : ''
     
-   await currentSearchMethod.value === 'baidu' ? usesug(currentSearchMethod.value + searchUrl.value.baidu.sugPath, input.value).then((res) => {
+   await currentSearchMethod.value === 'baidu' ? usesug(currentSearchMethod.value + searchUrl.value.baidu.sugPath, input.value).then((res:any) => {
      sugList.value = res.split('s:[')[1].split(']});')[0].replace(/"/g, '').split(',')
      showSug.value=true
     }) : ''
