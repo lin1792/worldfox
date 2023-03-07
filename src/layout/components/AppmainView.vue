@@ -5,16 +5,23 @@ import { usesug } from '@/utils/api'
 import {useSearchStore} from '@/stores/search'
 import { storeToRefs } from 'pinia';
 import quikNavigate from '@/components/quikNavigate.vue'
+import { requiredNumber } from 'element-plus/es/components/table-v2/src/common';
 const useSearch = useSearchStore()
 const {currentSearchMethod,searchUrl}=storeToRefs(useSearch) as any
 
 // const searchPic= require('../../assets/image/biying.png')
+// const img=ref({biying:require('../../assets/image/biying.png'),baidu:'../../assets/image/baidu.png',google:'../../assets/image/google.png'})
 const buttonRef = ref()
 const popoverRef = ref()
 const quikNav = ref(false)
 const showSug = ref(false)
 const sugList = ref([] as any)
 const elinput = ref(null as any)
+
+function getImageUrl(name: any) {    
+    return new URL(`../../assets/image/${name}.png`, import.meta.url).href;
+}
+
 const onClickOutside = () => {
   quikNav.value=false
   unref(popoverRef).popperRef?.delayHide?.()
@@ -75,7 +82,7 @@ const search = () => {
  <div :class="'flex w-full h-12 py-2 pr-2 bg-red-100 border-t border-x'+ (showSug===true?' rounded-t-md border-red-400':' rounded-md border-transparent')">
   <!-- 切换搜索引擎 -->
 <div class="flex items-center h-full hover:cursor-pointer" ref="buttonRef" v-click-outside="onClickOutside" @click="showMore()">
-<img :src="`../../../src/assets/image/${currentSearchMethod}.png`" class="h-full pl-2 mr-1" alt="">
+<img :src="getImageUrl(currentSearchMethod)" class="h-full pl-2 mr-1" alt="">
 <div :class="'flex items-center justify-center w-5 text-gray-500 iconfont icon-sanjiaoxia transition-all'+(quikNav===true?' -rotate-180':'')"></div>
 <el-popover
     ref="popoverRef"
