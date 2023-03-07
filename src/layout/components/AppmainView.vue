@@ -5,7 +5,6 @@ import { usesug } from '@/utils/api'
 import {useSearchStore} from '@/stores/search'
 import { storeToRefs } from 'pinia';
 import quikNavigate from '@/components/quikNavigate.vue'
-import { requiredNumber } from 'element-plus/es/components/table-v2/src/common';
 const useSearch = useSearchStore()
 const {currentSearchMethod,searchUrl}=storeToRefs(useSearch) as any
 
@@ -103,7 +102,7 @@ const search = () => {
   </el-popover>
 </div>
 <!-- 输入框 -->
-<el-input v-model="input" ref="elinput" placeholder="输入关键词搜索|点击左侧切换引擎"  clearable @keyup.enter="search()" @input="inputFn()" @blur="inputBlur()"  @focus="input!==''?inputFn():''" />
+<el-input v-model="input" ref="elinput" placeholder="输入关键词搜索|点击左侧切换引擎" class="search-input"  clearable @keyup.enter="search()" @input="inputFn()" @blur="inputBlur()"  @focus="input!==''?inputFn():''" />
  </div>
 
  <!-- 快捷导航 -->
@@ -130,6 +129,5 @@ const search = () => {
 </template>
 
 <style scoped>
- 
  
 </style>

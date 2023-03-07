@@ -6,4 +6,17 @@
   .toggleSearch{
     @apply w-1/3 p-2 !important
   }
+  /* .search-input{
+    @apply bg-transparent !important
+  } */
+  .search-input .el-input__wrapper{
+    @apply bg-transparent  !important
+  }
+ }
+
+
+ .search-input{
+  --el-input-border-color:transparent !important;
+  --el-input-focus-border-color:transparent !important;
+  --el-input-hover-border-color::transparent !important
  }
