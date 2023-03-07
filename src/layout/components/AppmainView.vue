@@ -75,7 +75,7 @@ const search = () => {
  <div :class="'flex w-full h-12 py-2 pr-2 bg-red-100 border-t border-x'+ (showSug===true?' rounded-t-md border-red-400':' rounded-md border-transparent')">
   <!-- 切换搜索引擎 -->
 <div class="flex items-center h-full hover:cursor-pointer" ref="buttonRef" v-click-outside="onClickOutside" @click="showMore()">
-<img :src="`/src/assets/image/${currentSearchMethod}.png`" class="h-full pl-2 mr-1" alt="">
+<img :src="`../../../src/assets/image/${currentSearchMethod}.png`" class="h-full pl-2 mr-1" alt="">
 <div :class="'flex items-center justify-center w-5 text-gray-500 iconfont icon-sanjiaoxia transition-all'+(quikNav===true?' -rotate-180':'')"></div>
 <el-popover
     ref="popoverRef"
