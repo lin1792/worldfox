@@ -1,0 +1,30 @@
+{
+  "id": "3930989",
+  "name": "worldfox",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3538385",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e719",
+      "unicode_decimal": 59161
+    },
+    {
+      "icon_id": "5121513",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "23261314",
+      "name": "三角下",
+      "font_class": "sanjiaoxia",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    }
+  ]
+}

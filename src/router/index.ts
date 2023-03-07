@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter,createWebHashHistory} from 'vue-router'
 import Layout from '@/layout/IndexView.vue'
 
 import { useSearchStore } from '@/stores/search'
@@ -7,7 +7,7 @@ import { useSearchStore } from '@/stores/search'
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',

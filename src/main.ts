@@ -12,6 +12,7 @@ import "element-plus/theme-chalk/el-notification.css";
 import "element-plus/theme-chalk/el-message-box.css";
 
 import './index.css'
+import './assets/font/iconfont.css'
 const app = createApp(App)
 
 const pinia = createPinia()
