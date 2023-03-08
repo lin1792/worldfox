@@ -4,7 +4,7 @@ import { ClickOutside as vClickOutside } from 'element-plus'
 import { usesug } from '@/utils/api'
 import {useSearchStore} from '@/stores/search'
 import { storeToRefs } from 'pinia';
-import quikNavigate from '@/components/quikNavigate.vue'
+import quikNavigate from '@/components/quikNavigate/quikNavigate.vue'
 import {debounce,throttle} from 'lodash'
 const useSearch = useSearchStore()
 const {currentSearchMethod,searchUrl}=storeToRefs(useSearch) as any
@@ -116,7 +116,7 @@ const search = () => {
  <!-- 搜索建议 -->
  <ul v-show="showSug" class="absolute left-0 w-full p-2 pt-0 bg-red-100 border-b border-red-400 rounded-b backdrop-blur bg-opacity-40 border-x top-full">
       <li class="mb-2 border-t border-red-200"></li>
-     <li v-for="item in sugList" :key="item" class="h-10 px-2 leading-10 transition-all cursor-pointer first:mt-2 hover:bg-red-200 hover:bg-opacity-60" @click="input=item.Txt,search()"><span class="mr-3 text-xl iconfont icon-sousuo"></span>{{currentSearchMethod==='biying'?item.Txt:''}}{{ currentSearchMethod==='baidu'?item:'' }}</li>
+     <li v-for="item in sugList" :key="item" class="h-10 px-2 leading-10 transition-all cursor-pointer first:bg-red-600 hover:bg-red-200 hover:bg-opacity-60" @click="input=item.Txt,search()"><span class="mr-3 text-xl iconfont icon-sousuo"></span>{{currentSearchMethod==='biying'?item.Txt:''}}{{ currentSearchMethod==='baidu'?item:'' }}</li>
   </ul>
   </div>
  
