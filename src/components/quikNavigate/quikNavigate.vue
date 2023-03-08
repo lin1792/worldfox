@@ -6,7 +6,8 @@ import { ElMessage } from 'element-plus'
 const useSearch = useSearchStore()
 const { quikNavigate } = storeToRefs(useSearch) as any
 const quikListDialog = ref(false)
-
+const openIndex = ref(null as any)
+const ulbt=ref(null as any)
 
 const a = document.createElement('a')
 a.setAttribute('target','_blank')
@@ -21,6 +22,10 @@ const openAdd = () => {
   //   showClose: true,
   //   message: '功能暂未开发，敬请期待！',
   // })
+}
+const openButton= (index:any) => {
+  console.log(2);
+  openIndex.value = index;
 }
 </script>
 
@@ -52,9 +57,15 @@ const openAdd = () => {
       </div>
   </template>
     <ul class="h-440">
-       <li v-for="item in 10" :key="item" class="flex items-center justify-between px-2 transition-all rounded-sm cursor-pointer hover:bg-red-200 h-11">
+       <li v-for="(item,index) in 10" :key="item" class="flex items-center justify-between px-2 transition-all rounded-sm cursor-pointer hover:bg-red-200 h-11">
          <div class="flex items-center text-gray-50"><img src="../../assets/image/biying.png" class="h-8 mr-2" alt="">必应收缩</div>
-         <span class="text-2xl leading-9 scale-150 iconfont text-gray-50 hover:text-gray-400 icon-gengduo"></span>
+         <div class="relative">
+             <span class="text-2xl leading-9 scale-150 iconfont text-gray-50 hover:text-gray-400 icon-gengduo" @click="openButton(index)"></span>
+             <ul tabindex="2" ref="ulbt" :class="'absolute focus:outline-none py-1 -top-3 flex flex-col justify-center -right-2 w-9 bg-red-100 rounded transition-all h-16'+(openIndex===index?'':' scale-0')" @blur="openIndex=null">
+                <li class="flex items-center justify-center flex-1 text-xs transition-all w-9 hover:bg-red-200">修改</li>
+                <li class="flex items-center justify-center flex-1 text-xs transition-all w-9 hover:bg-red-200" @click="openIndex=null">删除</li>
+             </ul>
+         </div>
       </li>
     </ul>
   </el-dialog>
