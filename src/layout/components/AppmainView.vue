@@ -5,6 +5,7 @@ import { usesug } from '@/utils/api'
 import {useSearchStore} from '@/stores/search'
 import { storeToRefs } from 'pinia';
 import quikNavigate from '@/components/quikNavigate.vue'
+import {debounce,throttle} from 'lodash'
 const useSearch = useSearchStore()
 const {currentSearchMethod,searchUrl}=storeToRefs(useSearch) as any
 
@@ -25,18 +26,18 @@ const onClickOutside = () => {
   quikNav.value=false
   unref(popoverRef).popperRef?.delayHide?.()
 }
-const showMore = () => {
+const showMore = throttle(() => {
   quikNav.value=!quikNav.value
   // quikNav.value=false
   console.log(popoverRef.value);
-}
+},300)
 const inputBlur = () => {
   setTimeout(() => {
     showSug.value=false
   },100)
 }
 const input = ref('')
-const inputFn =async () => {
+const searchSug =async () => {
   if (input.value !== '') {
     
    await currentSearchMethod.value==='biying'?usesug(currentSearchMethod.value + searchUrl.value.biying.sugPath, input.value).then((res:any) => {
@@ -56,6 +57,8 @@ const inputFn =async () => {
     
   }
 }
+const inputFn=debounce(()=>{searchSug()}, 200,)
+
 
 const a = document.createElement('a')
 a.setAttribute('target', '_blank');
