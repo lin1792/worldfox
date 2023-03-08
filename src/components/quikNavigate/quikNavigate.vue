@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import {ref} from 'vue'
 import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia';
 import { ElMessage } from 'element-plus'
 const useSearch = useSearchStore()
 const { quikNavigate } = storeToRefs(useSearch) as any
+const quikListDialog = ref(false)
 
 
 const a = document.createElement('a')
@@ -14,10 +16,11 @@ const search = (item:any) => {
 }
 
 const openAdd = () => {
-    ElMessage({
-    showClose: true,
-    message: '功能暂未开发，敬请期待！',
-  })
+  quikListDialog.value=true
+  //   ElMessage({
+  //   showClose: true,
+  //   message: '功能暂未开发，敬请期待！',
+  // })
 }
 </script>
 
@@ -33,9 +36,34 @@ const openAdd = () => {
 
       <li class="flex items-center justify-center w-6 h-6 text-2xl text-white transition-all bg-red-100 bg-opacity-50 border border-transparent rounded-full cursor-pointer hover:border-red-100 iconfont icon-gengduo" title="添加快捷导航" @click="openAdd()"></li>
   </ul>
+
+  <!-- 切换页 -->
+  <el-dialog
+    v-model="quikListDialog"
+    width="30%"
+    :show-close="false"
+    align-center
+    class="bg-red-100 bg-opacity-40 backdrop-blur-xl"
+  >
+  <template #header>
+      <div class="flex items-center justify-between cursor-default text-gray-50 my-header">
+        <h1 class="text-lg">快捷导航</h1>
+        <h5 class="transition-all cursor-pointer hover:text-gray-300">+新建快捷导航</h5>
+      </div>
+  </template>
+    <ul class="h-440">
+       <li v-for="item in 10" :key="item" class="flex items-center justify-between px-2 transition-all rounded-sm cursor-pointer hover:bg-red-200 h-11">
+         <div class="flex items-center text-gray-50"><img src="../../assets/image/biying.png" class="h-8 mr-2" alt="">必应收缩</div>
+         <span class="text-2xl leading-9 scale-150 iconfont text-gray-50 hover:text-gray-400 icon-gengduo"></span>
+      </li>
+    </ul>
+  </el-dialog>
   </main>
 </template>
 
-<style scoped>
-
+<style scoped lang="less">
+:deep(.el-dialog__header){
+  border-bottom: 1px solid rgb(254 226 226) !important;
+  margin-right: 0 !important;
+}
 </style>
