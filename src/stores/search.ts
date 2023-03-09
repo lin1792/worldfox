@@ -24,7 +24,7 @@ export const useSearchStore = defineStore({
 
   actions: {
     useupdata() {
-      console.log(JSON.parse(localStorage.getItem('search')!) );
+      // console.log(JSON.parse(localStorage.getItem('search')!) );
       
       localStorage.getItem('search') ? this.currentSearchMethod = JSON.parse(localStorage.getItem('search')!).currentSearchMethod : this.currentSearchMethod = 'biying'
       

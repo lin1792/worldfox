@@ -4,6 +4,7 @@ import { useSearchStore } from '@/stores/search'
 import { storeToRefs } from 'pinia';
 import { ElMessage } from 'element-plus'
 import type { FormInstance } from 'element-plus'
+import {debounce,throttle} from 'lodash'
 
 const useSearch = useSearchStore()
 const { quikNavigate } = storeToRefs(useSearch) as any
@@ -46,37 +47,53 @@ const dynamicValidateForm = reactive<{
   title: '',
 })
 
-const submitForm = (formEl: FormInstance | undefined) => {
+const submitForm = throttle((formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate((valid) => {
+  formEl.validate(async(valid) => {
     if (valid) {
-      editIndex.value===null?(addquikNavigate({url:dynamicValidateForm.url,img:dynamicValidateForm.url,title:dynamicValidateForm.title}),resetForm()):edituikNavigate(editIndex.value,{url:dynamicValidateForm.url,img:dynamicValidateForm.url,title:dynamicValidateForm.title})
-      
+      const imgurl = dynamicValidateForm.url.split('/')
+      if (editIndex.value === null) {
+        if (quikNavigate.value.length < 10) {
+          await addquikNavigate({ url: dynamicValidateForm.url, img: imgurl[0] + '//' + imgurl[2], title: dynamicValidateForm.title })
+        resetForm()
+        } else {
+            ElMessage.error({
+              showClose: true,
+    message: '快捷导航数量已达上限！',
+  })
+        }
+        
+      } else {
+        edituikNavigate(editIndex.value, { url: dynamicValidateForm.url, img: imgurl[0] + '//' + imgurl[2], title: dynamicValidateForm.title })
+      }
     } else {
       console.log('error submit!')
       return false
     }
   })
-}
+},1000)
+
 
 const resetForm = () => {
-  dynamicValidateForm.title=''
-  dynamicValidateForm.url = ''
+  // 表单重置
+  if (!formRef.value) return
+  formRef.value.resetFields()
+
   editIndex.value=null
 }
 </script>
 
 <template>
   <main>
-  <ul class="flex">
-      <li class="flex items-center justify-center mr-3 text-white">快捷导航</li>
+  <ul class="flex flex-wrap">
+      <li class="flex items-center justify-center mb-3 mr-3 text-white">快捷导航</li>
 
-      <li v-for="item in quikNavigate" :key="item" class="flex items-center p-0.5 pr-3 mr-3 transition-all bg-red-100 bg-opacity-50 border border-transparent rounded-full cursor-pointer hover:border-red-100 h-6" @click="search(item)">
+      <li v-for="item in quikNavigate" :key="item" class="flex mb-3 items-center p-0.5 pr-3 mr-3 transition-all bg-red-100 bg-opacity-50 border border-transparent rounded-full cursor-pointer hover:border-red-100 h-6" @click="search(item)">
            <img :src="`${item.img}`+'/favicon.ico'" class="h-full mr-1 bg-white rounded-full" alt="">
            <span class="text-xs text-white">{{ item.title }}</span>
       </li>
 
-      <li class="flex items-center justify-center w-6 h-6 text-2xl text-white transition-all bg-red-100 bg-opacity-50 border border-transparent rounded-full cursor-pointer hover:border-red-100 iconfont icon-gengduo" title="添加快捷导航" @click="openAdd()"></li>
+      <li class="flex items-center justify-center w-6 h-6 mb-3 text-2xl text-white transition-all bg-red-100 bg-opacity-50 border border-transparent rounded-full cursor-pointer hover:border-red-100 iconfont icon-gengduo" title="添加快捷导航" @click="openAdd()"></li>
   </ul>
 
   <!-- 切换页 -->
@@ -107,7 +124,13 @@ const resetForm = () => {
       :rules="[
         {
           required: true,
-          message: 'Please input url address',
+          message: 'url不能为空',
+          trigger: 'blur',
+        },
+        {
+          type:'url',
+          required: true,
+          message: '请输入正确的url',
           trigger: 'blur',
         },
       ]"
@@ -117,11 +140,19 @@ const resetForm = () => {
     <el-form-item
       :label="'网站名称'"
       :prop="'title'"
-      :rules="{
+      :rules="[
+      {
         required: true,
-        message: 'web can not be null',
+        message: '网站名称不能为空',
         trigger: 'blur',
-      }"
+      },
+      {
+        min:1,
+        max:10,
+        message: '网站名称长度在1到10个字符！',
+        trigger: 'blur',
+      }
+      ]"
     >
       <el-input v-model="dynamicValidateForm.title" />
     </el-form-item>
@@ -171,5 +202,14 @@ const resetForm = () => {
 }
 :deep(.el-form-item__label){
   color: #fff !important;
+}
+
+:deep(.el-button--primary){
+  --el-button-border-color:rgb(254 226 226) !important;
+  --el-button-hover-border-color:rgb(254 226 226) !important;
+  --el-button-hover-bg-color: rgb(254 226 226) !important;
+  --el-button-active-bg-color: rgb(254 226 226) !important;
+    --el-button-active-border-color: rgb(254 226 226) !important;
+    --el-button-hover-text-color:rgb(247, 96, 96) !important;
 }
 </style>
