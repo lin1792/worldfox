@@ -26,7 +26,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const useSearch = useSearchStore()
   useSearch.useupdata()
-  console.log(1);
+  // console.log(1);
   next()
 });
 export default router
